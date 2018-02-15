@@ -10,17 +10,13 @@ set(Boost_USE_MULTITHREADED      ON)
 
 find_package(Boost 1.66 COMPONENTS system REQUIRED)
 
-# set(cfg_SOURCES
-#     "src/config_generator/fields_alloc.hpp"
-#     "src/config_generator/http_worker.hpp"
-#     "src/config_generator/config_generator.hpp")
+add_library(json STATIC "${CMAKE_CURRENT_SOURCE_DIR}/src/json/json.hpp")
+set_target_properties(json PROPERTIES LINKER_LANGUAGE CXX)
+target_include_directories(json PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/json")
 
-add_library(json INTERFACE)
-target_include_directories(json INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/json")
 
-add_library(configGenerator INTERFACE) # ${cfg_SOURCES})
+add_library(configGenerator INTERFACE)
 target_include_directories(configGenerator INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/src/config_generator")
-# target_link_libraries(configGenerator ${Boost_SYSTEM_LIBRARY})
 
 add_library(http STATIC "${CMAKE_CURRENT_SOURCE_DIR}/src/http/http_worker.hpp")
 set_target_properties(http PROPERTIES LINKER_LANGUAGE CXX)
@@ -28,5 +24,5 @@ target_include_directories(http PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/http")
 target_link_libraries(http ${Boost_SYSTEM_LIBRARY} pthread configGenerator json)
 
 add_executable(configAndRules src/main.cpp)
-target_compile_options(configAndRules PUBLIC -g -Wall -pedantic -Wextra)
+target_compile_options(configAndRules PUBLIC -g -Wall -pedantic -Wextra -O3)
 target_link_libraries(configAndRules http)
