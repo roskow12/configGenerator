@@ -16,7 +16,7 @@ ExternalProject_Add( boost
 )
 
 set(Boost_INCLUDE_DIRS ${CMAKE_CURRENT_BINARY_DIR}/boost/src/boost)
-set(Boost_Libraries ${CMAKE_CURRENT_BINARY_DIR}/boost/src/boost/stage/lib)
+set(Boost_Libraries ${CMAKE_CURRENT_BINARY_DIR}/boost/src/boost/stage/lib/libboost_system.a)
 # set(Boost_USE_STATIC_LIBS ON) # only find static libs
 # set(Boost_USE_MULTITHREADED ON)
 # set(Boost_NO_SYSTEM_PATHS ON)
